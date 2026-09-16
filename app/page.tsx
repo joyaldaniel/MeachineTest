@@ -1,7 +1,7 @@
 "use client";
 
 import { Search } from "lucide-react";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 import { Sidebar } from "@/src/components/layout/Sidebar";
 
@@ -21,7 +21,7 @@ import type { WaitlistUser } from "@/src/types/waitlist.types";
 
 const PAGE_SIZE = 10;
 
-export default function HomePage() {
+ function HomePageContent() {
   const [selectedUser, setSelectedUser] =
     useState<WaitlistUser | null>(null);
 
@@ -159,5 +159,12 @@ export default function HomePage() {
         onReject={handleReject}
       />
     </main>
+  );
+}
+export default function HomePage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomePageContent />
+    </Suspense>
   );
 }
